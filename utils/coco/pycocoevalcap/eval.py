@@ -23,7 +23,7 @@ class COCOEvalCap:
         res = {}
         for i in range(len(self.captions)):
           s = self.captions.iloc[i, 0].split('.')[0]
-          if s in gts.keys:
+          if gts.has_key(s):
             gts[s].append(self.captions.iloc[i, 1])
           else:
             gts[s] = [self.captions.iloc[i, 1]] 
