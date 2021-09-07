@@ -66,6 +66,7 @@ def main(argv):
             model = CaptionGenerator(config)
             model.load(sess, FLAGS.model_file)
             tf.get_default_graph().finalize()
+            # model.custom_eval(sess, coco, data, vocabulary)
             model.eval(sess, coco, data, vocabulary)
 
         elif FLAGS.phase == 'test_loaded_cnn':

@@ -65,6 +65,17 @@ class BaseModel(object):
         self.save()
         train_writer.close()
         print("Training complete.")
+        
+    def custom_eval(self, sess, eval_gt_coco, eval_data, vocabulary):
+        print("Evaluating the model ...")
+        config = self.config
+        temp = COCO()
+        eval_result_coco = temp.customLoadRes(config.eval_result_file, eval_gt_coco, eval_data)
+        # eval_result_coco = eval_gt_coco.loadRes(config.eval_result_file)
+        # scorer = COCOEvalCap(eval_gt_coco, eval_result_coco)
+        scorer = COCOEvalCap(eval_result_coco, eval_gt_coco, eval_data)
+        scorer.evaluate()
+        print("Evaluation complete.")
 
     def eval(self, sess, eval_gt_coco, eval_data, vocabulary):
         """ Evaluate the model using the COCO val2014 data. """
