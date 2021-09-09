@@ -141,8 +141,9 @@ def prepare_train_data(config):
 def prepare_eval_data(config):
     """ Prepare the data for evaluating the model. """
     # coco = COCO(config.eval_caption_file)
-    captions = pd.read_csv(config.eval_caption_file, header = 1)
-    captions = captions.sample(frac = 1)
+    captions = pd.read_csv(config.eval_caption_file)
+    captions.drop_duplicates(subset='image', keep='first', inplace=True, ignore_index=True)
+    # captions = captions.sample(frac = 1)
     # image_ids = list(coco.imgs.keys())
     # image_files = [os.path.join(config.eval_image_dir,
                                 # coco.imgs[image_id]['file_name'])
